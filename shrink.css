@@ -1,0 +1,236 @@
+.hand-drawn-arc {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    pointer-events: none;
+  }
+  
+  .arc-outer {
+    fill: none;
+    stroke: #ff69b4;  /* Hot pink fill */
+    stroke-width: 25px;
+    stroke-linecap: round;
+  }
+  
+  .arc-outer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    stroke: #000;  /* Black outline */
+    stroke-width: 28px;  /* Slightly wider than the pink to create outline */
+    z-index: 100;
+  }
+  
+  .arc-inner {
+    fill: none;
+    stroke: #ff69b4;
+    stroke-width: 20px;
+    stroke-linecap: round;
+  }
+  
+  .arc-inner::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    stroke: #000;
+    stroke-width: 23px;
+    z-index: 100;
+  }
+  
+  @keyframes shrink-arc-outer {
+    0% {
+      opacity: 0.9;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    40% {
+      opacity: 0.9;
+      transform: translate(-50%, -50%) scale(0.8);
+    }
+    80% {
+      opacity: 0.8;
+      transform: translate(-50%, -50%) scale(0.3);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0);
+    }
+  }
+  
+  @keyframes shrink-arc-inner {
+    0% {
+      opacity: 0.9;
+      transform: translate(-50%, -50%) scale(0.8);
+    }
+    40% {
+      opacity: 0.9;
+      transform: translate(-50%, -50%) scale(0.6);
+    }
+    80% {
+      opacity: 0.8;
+      transform: translate(-50%, -50%) scale(0.2);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0);
+    }
+  }
+  
+  /* Star impact styles */
+  .star-impact {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    transform: translate(-50%, -50%) scale(0.3) rotate(0deg);
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%23FFCC00' stroke='%23000' stroke-width='2' d='M50,0 L55,35 L90,25 L60,50 L95,70 L60,65 L70,100 L50,70 L30,100 L40,65 L5,70 L40,50 L10,25 L45,35 Z'/%3E%3C/svg%3E") no-repeat center center;
+    background-size: contain;
+    opacity: 0;
+    z-index: 1000;
+    animation: star-impact 0.8s ease-out forwards;
+  }
+  
+  @keyframes star-impact {
+    0% {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.3) rotate(0deg);
+    }
+    30% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1.1) rotate(20deg);
+    }
+    80% {
+      opacity: 0.8;
+      transform: translate(-50%, -50%) scale(0.3) rotate(35deg);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(1.1) rotate(45deg);
+    }
+  }
+  
+  /* Flash effect styles */
+  .flash-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    pointer-events: none;
+    animation: flash 0.4s ease-out forwards;
+  }
+  
+  @keyframes flash {
+    0% { opacity: 0; }
+    25% { opacity: 0.4; }
+    100% { opacity: 0; }
+  }
+  
+  /* shardy styles */
+  .shardy {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 20000;
+    opacity: 0;
+  }
+  
+  .shardy1 {
+    border-left: 30px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 45px solid rgb(255, 50, 50);
+    animation: shardy1-burst 0.6s ease-out forwards;
+  }
+  
+  .shardy2 {
+    border-left: 25px solid transparent;
+    border-right: 18px solid transparent;
+    border-top: 60px solid rgb(255, 80, 80);
+    animation: shardy2-burst 0.6s ease-out forwards;
+  }
+  
+  .shardy3 {
+    border-left: 12px solid transparent;
+    border-right: 16px solid transparent;
+    border-top: 65px solid rgb(255, 100, 50);
+    animation: shardy3-burst 0.7s ease-out forwards;
+  }
+  
+  .shardy4 {
+    border-left: 18px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 48px solid rgb(255, 130, 70);
+    animation: shardy4-burst 0.65s ease-out forwards;
+  }
+  
+  @keyframes shardy1-burst {
+    0% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(0.1) rotate(0deg);
+    }
+    25% {
+      opacity: 1;
+      transform: translate(40px, -30px) scale(0.6) rotate(45deg);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(80px, -60px) scale(0.8) rotate(90deg);
+    }
+  }
+  
+  @keyframes shardy2-burst {
+    0% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(0.1) rotate(0deg);
+    }
+    25% {
+      opacity: 1;
+      transform: translate(-50px, -20px) scale(0.6) rotate(-30deg);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(-100px, -40px) scale(0.9) rotate(-60deg);
+    }
+  }
+  
+  @keyframes shardy3-burst {
+    0% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(0.1) rotate(0deg);
+    }
+    25% {
+      opacity: 1;
+      transform: translate(30px, 40px) scale(0.5) rotate(60deg);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(60px, 80px) scale(0.7) rotate(120deg);
+    }
+  }
+  
+  @keyframes shardy4-burst {
+    0% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(0.1) rotate(0deg);
+    }
+    25% {
+      opacity: 1;
+      transform: translate(-40px, 30px) scale(0.5) rotate(-95deg);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(-80px, 60px) scale(0.8) rotate(-120deg);
+    }
+  }
+

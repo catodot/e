@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    
+        <title>WHACK-A--HOLE: Shout! Smack! Fight back!</title>
+    
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap" rel="stylesheet" />
+    
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@700&family=Alfa+Slab+One&display=swap" rel="stylesheet" />
+    
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet" />
+    
+        <!-- Stylesheets -->
+        <link href="./styles.css" rel="stylesheet" type="text/css" />
+        <link href="./debug.css" rel="stylesheet" type="text/css" />
+        <link href="./trumpHand.css" rel="stylesheet" type="text/css" />
+        <link href="./shrink.css" rel="stylesheet" type="text/css" />
+    
+    
+    
+        <link href="./voice-recorder.css" rel="stylesheet" type="text/css" />
+    
+        <link href="https://fonts.googleapis.com/css2?family=PT+Mono&display=swap" rel="stylesheet" />
+    
+        <meta name="author" content="Cato Döt" />
+        <meta name="description" content="WHACK-A--HOLE: Shout! Smack! Fight back!" />
+        <!-- Open Graph / Yuck -->
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://catodot.github.io/d/" />
+        <meta property="og:title" content="WHACK-A--HOLE: Shout! Smack! Fight back!" />
+        <meta
+          property="og:description"
+          content="Smack grabby hands and rally the resistance in this whack-a--hole dedicated to a delusional despot who just can't keep his hands to himself. Plus: add your voice to the game!" />
+        <meta property="og:image" content="https://catodot.github.io/d/images/grab.png" />
+    
+    
+        <!-- Eewww Card Tags  -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="WHACK-A--HOLE: Shout! Smack! Fight back!" />
+        <meta
+          name="twitter:description"
+          content="Smack grabby hands and rally the resistance in this whack-a--hole dedicated to a delusional despot who just can't keep his hands to himself. Plus: add your voice to the game!" />
+        <meta name="twitter:image" content="https://catodot.github.io/d/images/grab.png" />
+    
+        <link rel="me" href="https://mastodon.social/@freedom" />
+    
+        <!-- Bluesky/AT Protocol -->
+        <meta property="bsky:title" content="WHACK-A--HOLE: Shout! Smack! Fight back!" />
+        <meta
+          property="bsky:description"
+          content="Smack grabby hands and rally the resistance in this whack-a--hole dedicated to a delusional despot who just can't keep his hands to himself. Plus: add your voice to the game!" />
+        <meta property="bsky:image" content="https://catodot.github.io/d/images/grab.png" />
+    
+        <meta
+          name="description"
+          content="Smack grabby hands and rally the resistance in this whack-a--hole dedicated to a delusional despot who just can't keep his hands to himself. Plus: add your voice to the game!" />
+    
+        <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png" />
+        <link rel="manifest" href="./site.webmanifest" />
+      </head>
+    <script>
+        // This code runs when the page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            // Hide intro screen
+            document.getElementById('intro-screen').classList.add('hidden');
+            
+            // Show game over screen
+            const gameOverScreen = document.getElementById('game-over-screen');
+            gameOverScreen.classList.remove('hidden');
+            gameOverScreen.style.display = 'block';
+
+            // Set some default stats
+            document.getElementById('final-score').textContent = '420';
+            document.getElementById('blocks-stat').textContent = '69 attacks';
+            document.getElementById('time-stat').textContent = '8 months';
+
+            // Show recording modal
+            const recorderModal = document.getElementById('voice-recorder-modal');
+            recorderModal.classList.remove('hidden');
+            recorderModal.style.display = 'flex';
+            recorderModal.style.opacity = '1';
+            recorderModal.style.visibility = 'visible';
+
+            // Initialize voice recorder
+            if (!window.voiceRecorder) {
+                window.voiceRecorder = new VoiceRecorder();
+                window.voiceRecorder.init();
+            }
+        });
+    </script>
+</head>
+<body>
+
+
+    <!-- Intro Screen -->
+    <div id="intro-screen" class="screen">
+      <div class="intro-content">
+        <h2>WHACK-A--HOLE</h2>
+
+        <h1>Welcome to the resistance</h1>
+
+        <button id="start-button">Start Game</button>
+      </div>
+    </div>
+
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="screen hidden">
+      <div id="stars"></div>
+
+      <div id="game-hud">
+        <div id="term-progress-container">
+          <div id="term-progress-bar"></div>
+          <!-- <marquee behavior="alternate" scrollamount="1" id="term-progress-label">UNLESS WE DO SOMETHING</marquee> -->
+
+          <div id="term-progress-label">UNLESS...</div>
+        </div>
+        <div id="score" class=""><p class="score"><span id="score-value">0</span></p></div>
+      </div>
+
+      <!-- Game Container -->
+      <div id="game-container">
+        <!-- Map Background -->
+        <img
+          id="map-background"
+          src="images/world-map.png"
+          alt="Interactive world map showing Canada, Mexico, and Greenland for the resistance game" />
+
+        <div id="canada-flag-overlay" class="country-flag-overlay" aria-label="Canadian flag overlay with USA flag"></div>
+        <div id="mexico-flag-overlay" class="country-flag-overlay" aria-label="Mexican flag overlay with USA flag"></div>
+        <div id="greenland-flag-overlay" class="country-flag-overlay" aria-label="Greenland flag overlay with USA flag"></div>
+
+        <div id="reddot"></div>
+
+        <!-- Trump sprite container -->
+        <div id="trump-sprite-container">
+          <div id="trump-hand-hitbox"></div>
+          <div id="trump-sprite" aria-label="Interactive Trump character sprite"></div>
+        </div>
+        <div id="trump-hand-visual" aria-label="Trump's hand that can be interacted with"></div>
+      </div>
+    </div>
+
+
+
+    <div id="game-over-screen" class="screen hidden">
+      <div class="game-over-content">
+        <h1 id="game-result">Game Over</h1>
+        <h2>Resistance Score: <span id="final-score">0</span></h2>
+        <div class="game-over-stats-container">
+          <p class="stats-text game-over-stat-value">
+            YOU BLOCKED <span id="blocks-stat">0 attacks</span> AND SURVIVED <span id="time-stat">10 months</span>
+          </p>
+
+        </div>
+        <div id="trump-game-over-animation" class="trump-victory-animation"></div>
+        <div class="game-over-button-container">
+
+
+          <button id="share-button" class="hand-drawn-button" data-action="record-voice">
+            <span class="resistance-text">ADD YOUR VOICE TO THE GAME</span>
+          </button>
+        </div>
+        <!-- New social share buttons -->
+        <div class="social-buttons-row">
+          <button id="download-screenshot" class="social-button download-button" aria-label="Download Screenshot">↓</button>
+          <button id="share-twitter" class="social-button twitter-button" aria-label="Share on Twitter">X</button>
+          <button id="share-facebook" class="social-button facebook-button" aria-label="Share on Facebook">f</button>
+          <button id="share-bluesky" class="social-button bluesky-button" aria-label="Share on Bluesky">B</button>
+          <button id="share-mastodon" class="social-button mastodon-button" aria-label="Share on Mastodon">M</button>
+        </div>
+
+        <button id="restart-button">Try again</button>
+
+      </div>
+    </div>
+
+
+    <div id="voice-recorder-modal" class="hidden">
+      <div id="voice-recorder-container" class="voice-recorder-container">
+        <button class="close-button" id="close-recorder">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="21" y1="3" x2="3" y2="21"></line>
+            <line x1="3" y1="3" x2="21" y2="21"></line>
+          </svg>
+          
+        </button>
+    
+        <div class="header">
+          <h2>Add your voice<br>to the game!</h2>
+          <p class="instruction-text">
+            JOIN THE RESISTANCE FOR REAL! Tap to record your own 2-second Trump takedown! We'll add it to the game. <span class="examples">Pivikku! NAWWW! ¡Marchate! Décalisse ! Take a hike! Sipwehte! Vamoose Caboose! Va-t'en ! Nize it! Elbows up! SCRAM! Begone!</span></p>
+            </div>
+    
+        <div class="recorder-section">
+          <button class="record-button" id="record-button">
+            <img src="https://catodot.github.io/d/images/mic-icon.png" alt="Microphone" class="mic-icon">
+            <span class="record-label">CLICK TO RECORD</span>
+          </button>
+          
+          <div class="recording-info" id="recording-info">
+            <span class="recording-status-text">Recording in progress...</span>
+            <div class="recording-timer" id="recording-timer">3.0 seconds</div>
+          </div>
+        </div>
+    
+        <div id="recordings-container" class="recordings-container hidden">
+          <div id="recordings-list"></div>
+          
+          <div class="location-select-wrapper">
+            <select id="location-select" class="location-select">
+              <option value="" disabled selected>Select location</option>
+              <option value="Canada">Canada</option>
+              <option value="Greenland">Greenland</option>
+              <option value="Mexico">Mexico</option>
+              <option value="Turtle Island">Turtle Island</option>
+              <option value="Other">Other</option>
+            </select>
+            <div id="other-location-container" class="other-location hidden">
+              <input id="other-location" type="text" placeholder="Enter your location">
+            </div>
+          </div>
+    
+          <button id="send-recording" class="send-button" disabled>
+            ADD TO GAME
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Thank You Message -->
+    <div id="thank-you-message" class="hidden">
+      <div class="thank-you-container">
+        <h2>Your voice has been added to the game</h2>
+        <p>We will shout until they hear us</p>
+        <button id="close-thank-you" class="close-thank-you">Close</button>
+      </div>
+    </div>
+
+    <script src="audio-manager.js" defer></script>
+    <script src="audio-helper.js" defer></script>
+
+<script src="game-logger.js" defer></script>
+<!-- <script src="debug-util.js" defer></script> -->
+<script src="device-utils.js" defer></script>
+<script src="animation-manager.js" defer></script>
+<!-- <script src="smack-manager.js" defer></script> -->
+<script src="html2canvas.js" defer></script>
+<!-- <script src="trump-effects-controller.js" defer></script> -->
+<script src="screen-shot-share.js" defer></script>
+<!-- <script src="protestor-hitbox-manager.js" defer></script> -->
+<script src="https://upload-widget.cloudinary.com/global/all.js" defer></script>
+<script src="debug-manager.js" defer></script>
+<script src="ufo-manager.js" defer></script>
+<script src="stars.js" defer></script>
+<!-- <script src="freedom-manager.js" defer></script> -->
+<!-- <script src="handhitbox-manager.js" defer></script> -->
+<!-- <script src="game-speed-manager.js" defer></script> -->
+<script src="voice-recorder.js" defer></script>
+<script src="game-manager.js" defer></script>
+
+
+  </body>
+</html>

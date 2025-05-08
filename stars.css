@@ -1,0 +1,418 @@
+:root {
+    --primary-background: #16213e;
+    --secondary-background: #0f3460;
+    --accent-color: #e94560;
+    --text-color: #e0e0e0;
+    --glitch-cyan: rgba(0,255,255,0.7);
+    --glitch-magenta: rgba(255,0,255,0.7);
+    --glitch-yellow: rgba(255,255,0,0.7);
+}
+
+/* Base Element Styles */
+.sentient-orb {
+    /* transition: all 0.3s ease; */
+    cursor: pointer;
+    z-index: 10;
+    transform: scale(1);
+    pointer-events: all !important;
+}
+
+.sentient-orb:active {
+    /* transform: scale(0.9); */
+}
+
+
+.sentient-orb::before {
+    content: '';
+    position: absolute;
+    left: -20px;
+    top: -20px;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    cursor: pointer;
+}
+
+.star {
+    position: absolute;
+    background-color: white;
+    border-radius: 50%;
+    animation: 
+        twinkle var(--duration) var(--delay) infinite alternate,
+        drift 10s linear infinite alternate;
+    opacity: calc(var(--brightness) * 0.7);
+    z-index: 5;
+}
+
+/* Container Styles */
+#sentient-orb-chaos {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+#map-background.glitch-element {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 100%;
+    max-height: 100vh;
+}
+
+.sentient-orb-activated #map-background {
+    scale: 3;
+}
+
+/* Glitch Text Styles */
+
+
+@keyframes spin {
+    0% { transform: rotate(0deg) scale(var(--random-scale, 1)); }
+    100% { transform: rotate(360deg) scale(var(--random-scale, 1)); }
+}
+
+@keyframes wiggle {
+    0% { transform: rotate(-10deg) scale(0.9); }
+    50% { transform: rotate(10deg) scale(1.1); }
+    100% { transform: rotate(-60deg) scale(0.9); }
+}
+
+@keyframes float {
+    0% { transform: translateY(0) rotate(5deg); }
+    50% { transform: translateY(-15px) rotate(-5deg); }
+    100% { transform: translateY(0) rotate(5deg); }
+}
+
+@keyframes glitch {
+    0% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+    5% { clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 90%); }
+    10% { clip-path: polygon(0 0, 100% 10%, 100% 90%, 0 100%); }
+    15% { clip-path: polygon(0 20%, 100% 0, 100% 100%, 0 80%); }
+    20% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+}
+
+@keyframes glitch-anim {
+    0% { clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%); }
+    5% { clip-path: polygon(0 10%, 100% 0, 100% 45%, 0 35%); }
+    10% { clip-path: polygon(0 0, 100% 10%, 100% 45%, 0 35%); }
+    15% { clip-path: polygon(0 20%, 100% 0, 100% 45%, 0 25%); }
+    20% { clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%); }
+}
+
+@keyframes glitch-anim2 {
+    0% { clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%); }
+    5% { clip-path: polygon(0 65%, 100% 55%, 100% 100%, 0 75%); }
+    10% { clip-path: polygon(0 55%, 100% 65%, 100% 100%, 0 85%); }
+    15% { clip-path: polygon(0 75%, 100% 55%, 100% 100%, 0 95%); }
+    20% { clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%); }
+}
+
+@keyframes hue-rotate {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+}
+
+@keyframes hue-rotate-reverse {
+    0% { filter: hue-rotate(360deg); }
+    100% { filter: hue-rotate(0deg); }
+}
+
+#sentient-orb-text {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    font-size: 6vw;
+    letter-spacing: 20px;
+    color: white;
+    text-align: center;
+    z-index: 10000;
+    text-transform: uppercase;
+    mix-blend-mode: difference;
+    pointer-events: none;
+    user-select: none;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+}
+
+#sentient-orb-text span {
+    display: inline-block;
+    transition: all 0.3s ease;
+    animation: 
+        spin 10s linear infinite, 
+        wiggle 2s infinite alternate;
+}
+
+#sentient-orb-text span:nth-child(2n) {
+    animation: 
+        spin 8s linear infinite reverse, 
+        float 3s infinite alternate;
+    transform-origin: center;
+}
+
+#sentient-orb-text span:nth-child(3n) {
+    animation: 
+        spin 12s linear infinite alternate, 
+        wiggle 3s infinite alternate-reverse;
+    transform: rotate(var(--random-rotation, 0deg)) scale(var(--random-scale, 1));
+}
+
+#sentient-orb-text .glitch {
+    display: block;
+    font-weight: bold;
+    position: relative;
+    text-shadow: 
+        0.05em 0 0 var(--glitch-cyan), 
+        -0.03em -0.04em 0 var(--glitch-magenta), 
+        0.025em 0.04em 0 var(--glitch-yellow);
+    animation: 
+        glitch 2s infinite alternate-reverse, 
+        floatText 3s infinite alternate;
+}
+
+#sentient-orb-text .glitch::before,
+#sentient-orb-text .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+#sentient-orb-text .glitch::before {
+    left: 2px;
+    text-shadow: -2px 0 rgba(255,0,0,0.7);
+    color: rgba(255,255,255,0.2);
+    animation: 
+        glitch-anim 4s infinite linear alternate-reverse, 
+        hue-rotate 5s infinite linear;
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+}
+
+#sentient-orb-text .glitch::after {
+    left: -2px;
+    text-shadow: -2px 0 rgba(0,0,255,0.7);
+    color: rgba(255,255,255,0.9);
+    animation: 
+        glitch-anim2 4s infinite linear alternate-reverse, 
+        hue-rotate-reverse 5s infinite linear;
+    clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+}
+
+/* Glitch Element Styles */
+.glitch-element {
+    position: relative;
+    transition: transform 0.1s ease;
+    overflow: visible;
+}
+
+.glitch-overlay,
+.glitch-duplicate,
+.glitch-scanline,
+.glitch-noise,
+.glitch-fragment,
+.glitch-fragment-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.glitch-overlay {
+    mix-blend-mode: screen;
+    opacity: 0.5;
+}
+
+.glitch-duplicate {
+    mix-blend-mode: difference;
+    z-index: -1;
+}
+
+/* Chaos Fragment Styles */
+.chaos-fragment {
+    position: fixed !important;
+    filter: blur(1px);
+    animation: fragment-float 3s infinite alternate ease-in-out;
+    z-index: 9990;
+}
+
+/* Global Activation Styles */
+.sentient-orb-activated,
+body.sentient-orb-activated * {
+    animation: 
+        wobble 1s infinite alternate-reverse,
+        hueRotate 4s linear infinite,
+        shake 1s infinite alternate-reverse,
+        glitchBackground 3s infinite alternate-reverse;
+    transform-origin: center;
+    perspective: 500px;
+}
+
+body.sentient-orb-activated * {
+    animation: 
+        global-glitch 2s infinite alternate-reverse,
+        hue-rotate 6s linear infinite,
+        element-distort 1.5s infinite alternate-reverse;
+    transform-origin: center;
+    perspective: 500px;
+}
+
+/* Animation Keyframes */
+@keyframes floatText {
+    0% { transform: translateZ(0) rotateX(0deg) rotateY(0deg); }
+    100% { transform: translateZ(50px) rotateX(10deg) rotateY(-10deg); }
+}
+
+@keyframes wobble {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(2deg) scale(1.02); }
+    75% { transform: rotate(-3deg) scale(0.98); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0) translateY(0); }
+    25% { transform: translateX(-5px) translateY(3px); }
+    50% { transform: translateX(3px) translateY(-5px); }
+    75% { transform: translateX(5px) translateY(2px); }
+}
+
+@keyframes glitchBackground {
+    0% { 
+        background-position: 0 0;
+        background-color: rgba(255, 0, 238, 0.2);
+    }
+    25% {
+        background-position: 5px 0;
+        background-color: rgba(0, 255, 255, 0.2);
+    }
+    50% { 
+        background-position: -3px 3px;
+        background-color: rgba(255, 255, 0, 0.2);
+    }
+    75% {
+        background-position: 0 -5px;
+        background-color: rgba(0, 255, 0, 0.2);
+    }
+    100% {
+        background-position: 2px 2px;
+        background-color: rgba(255, 0, 0, 0.2);
+    }
+}
+
+@keyframes hueRotate {
+    0% { filter: hue-rotate(0deg) brightness(100%); }
+    50% { filter: hue-rotate(180deg) brightness(120%); }
+    100% { filter: hue-rotate(360deg) brightness(100%); }
+}
+
+@keyframes hue-rotate {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+}
+
+@keyframes hue-rotate-reverse {
+    0% { filter: hue-rotate(360deg); }
+    100% { filter: hue-rotate(0deg); }
+}
+
+@keyframes twinkle {
+    0% { opacity: calc(var(--brightness) * 0.3); box-shadow: 0 0 2px rgba(255, 255, 255, 0.1); }
+    50% { opacity: calc(var(--brightness) * 0.7); box-shadow: 0 0 3px rgba(255, 255, 255, 0.3); }
+    100% { opacity: calc(var(--brightness) * 1); box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); }
+}
+
+@keyframes drift {
+    0% { transform: translateX(-5px) translateY(-5px); }
+    33% { transform: translateX(3px) translateY(-2px); }
+    66% { transform: translateX(-2px) translateY(3px); }
+    100% { transform: translateX(5px) translateY(5px); }
+}
+
+@keyframes glitch {
+    0%, 15% {
+        text-shadow: 
+            0.05em 0 0 var(--glitch-cyan), 
+            -0.03em -0.04em 0 var(--glitch-magenta), 
+            0.025em 0.04em 0 var(--glitch-yellow);
+    }
+    16%, 49% {
+        text-shadow: 
+            -0.05em -0.025em 0 var(--glitch-cyan), 
+            0.025em 0.035em 0 var(--glitch-magenta), 
+            -0.05em -0.05em 0 var(--glitch-yellow);
+    }
+    50%, 99% {
+        text-shadow: 
+            0.05em 0.035em 0 var(--glitch-cyan), 
+            0.03em 0 0 var(--glitch-magenta), 
+            0 -0.04em 0 var(--glitch-yellow);
+    }
+    100% {
+        text-shadow: 
+            -0.05em 0 0 var(--glitch-cyan), 
+            -0.025em -0.04em 0 var(--glitch-magenta), 
+            -0.04em -0.025em 0 var(--glitch-yellow);
+    }
+}
+
+@keyframes glitch-anim {
+    0% { clip-path: polygon(0 0, 100% 0, 100% 5%, 0 5%); }
+    10% { clip-path: polygon(0 15%, 100% 15%, 100% 25%, 0 25%); }
+    20% { clip-path: polygon(0 10%, 100% 10%, 100% 20%, 0 20%); }
+    30% { clip-path: polygon(0 30%, 100% 30%, 100% 40%, 0 40%); }
+    40% { clip-path: polygon(0 40%, 100% 40%, 100% 50%, 0 50%); }
+    50% { clip-path: polygon(0 45%, 100% 45%, 100% 55%, 0 55%); }
+    60% { clip-path: polygon(0 60%, 100% 60%, 100% 70%, 0 70%); }
+    70% { clip-path: polygon(0 70%, 100% 70%, 100% 80%, 0 80%); }
+    80% { clip-path: polygon(0 80%, 100% 80%, 100% 90%, 0 90%); }
+    90% { clip-path: polygon(0 50%, 100% 50%, 100% 60%, 0 60%); }
+    100% { clip-path: polygon(0 90%, 100% 90%, 100% 100%, 0 100%); }
+}
+
+@keyframes glitch-anim2 {
+    0% { clip-path: polygon(0 15%, 100% 15%, 100% 30%, 0 30%); }
+    15% { clip-path: polygon(0 3%, 100% 3%, 100% 15%, 0 15%); }
+    25% { clip-path: polygon(0 50%, 100% 50%, 100% 75%, 0 75%); }
+    35% { clip-path: polygon(0 80%, 100% 80%, 100% 100%, 0 100%); }
+    45% { clip-path: polygon(0 45%, 100% 45%, 100% 60%, 0 60%); }
+    55% { clip-path: polygon(0 70%, 100% 70%, 100% 85%, 0 85%); }
+    65% { clip-path: polygon(0 12%, 100% 12%, 100% 25%, 0 25%); }
+    75% { clip-path: polygon(0 40%, 100% 40%, 100% 55%, 0 55%); }
+    85% { clip-path: polygon(0 80%, 100% 80%, 100% 95%, 0 95%); }
+    100% { clip-path: polygon(0 10%, 100% 10%, 100% 25%, 0 25%); }
+}
+
+@keyframes global-glitch {
+    0% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+    10% { clip-path: polygon(0 2%, 100% 0, 100% 98%, 0 100%); }
+    20% { clip-path: polygon(2% 0, 98% 2%, 100% 98%, 0 100%); }
+    30% { clip-path: polygon(2% 0, 100% 5%, 98% 100%, 0 95%); }
+    40% { clip-path: polygon(0 5%, 100% 0, 100% 95%, 5% 100%); }
+    50% { clip-path: polygon(0 0, 100% 3%, 97% 100%, 3% 97%); }
+    100% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+}
+
+@keyframes element-distort {
+    0% { transform: scale(1) skew(0deg) rotate(0deg); }
+    25% { transform: scale(1.003) skew(0.5deg) rotate(0.3deg); }
+    50% { transform: scale(1.005) skew(-0.5deg) rotate(-0.5deg); }
+    75% { transform: scale(0.997) skew(0.7deg) rotate(0.2deg); }
+    100% { transform: scale(1) skew(0deg) rotate(0deg); }
+}
+
+@keyframes fragment-float {
+    0% { transform: translate(0, 0) rotate(0deg); filter: hue-rotate(0deg) blur(1px); }
+    50% { transform: translate(20px, -15px) rotate(180deg); filter: hue-rotate(180deg) blur(2px); }
+    100% { transform: translate(-15px, 25px) rotate(360deg); filter: hue-rotate(360deg) blur(0px); }
+}
